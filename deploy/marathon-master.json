@@ -1,0 +1,63 @@
+{
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "network": "BRIDGE",
+      "forcePullImage": false,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "volumes": [
+      {
+        "containerPath": "/etc/resolv.conf",
+        "hostPath": "/etc/resolv.conf",
+        "mode": "RO"
+      }
+    ]
+  },
+  "env": {
+    "SIXPACK_CONFIG": "/sixpack/docker-config.yml",
+    "SIXPACK_CONFIG_ENABLED": "true",
+    "SIXPACK_CONFIG_SECRET": { "secret": "sixpack_config_secret" },
+    "SERVICE_NAME": "sixpack",
+    "SERVICE_80_TAGS": "sixpack,nginx,haproxy,haproxy_weight=100",
+    "SERVICE_80_NAME": "sixpack",
+    "SERVICE_80_CHECK_HTTP": "/",
+    "SERVICE_80_CHECK_INTERVAL": "30s",
+    "EXTERNAL_DNS_NAME": { "secret": "sixpack_config_external_dns_name" },
+    "OAUTH_CLIENT_ID": { "secret": "oauth_client_id" },
+    "OAUTH_CLIENT_SECRET": { "secret": "oauth_client_secret" }
+  },
+  "secrets": {
+     "oauth_client_id": { "source": "/secret/sixpack/oauth@client_id" },
+     "oauth_client_secret": { "source": "/secret/sixpack/oauth@client_secret" },
+     "sixpack_config_secret": { "source": "/secret/sixpack/config@secret" },
+     "sixpack_config_external_dns_name": { "source": "/secret/sixpack/config@external_dns_name" },
+   },
+  "healthChecks": [
+    {
+      "path": "/",
+      "portIndex": 0,
+      "protocol": "HTTP",
+      "gracePeriodSeconds": 60,
+      "intervalSeconds": 30,
+      "timeoutSeconds": 30,
+      "maxConsecutiveFailures": 2
+    }
+  ],
+  "instances": 1,
+  "cpus": 2,
+  "mem": 6656,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 0.1,
+    "minimumHealthCapacity": 0.75
+  },
+  "constraints": [
+    ["hostname", "GROUP_BY", "1"]
+  ]
+}
