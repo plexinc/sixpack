@@ -37,7 +37,7 @@
      "oauth_client_id": { "source": "/secret/sixpack/oauth@client_id" },
      "oauth_client_secret": { "source": "/secret/sixpack/oauth@client_secret" },
      "sixpack_config_secret": { "source": "/secret/sixpack/config@secret" },
-     "sixpack_config_external_dns_name": { "source": "/secret/sixpack/config@external_dns_name" },
+     "sixpack_config_external_dns_name": { "source": "/secret/sixpack/config@external_dns_name" }
    },
   "healthChecks": [
     {
