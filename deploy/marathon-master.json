@@ -11,7 +11,7 @@
           "protocol": "tcp"
         },
         {
-          "containerPort": 5001,
+          "containerPort": 80,
           "hostPort": 0,
           "protocol": "tcp"
         }
@@ -32,8 +32,8 @@
     "SERVICE_NAME": "sixpack",
     "SERVICE_5000_TAGS": "sixpack,nginx,haproxy,haproxy_weight=100",
     "SERVICE_5000_NAME": "sixpack",
-    "SERVICE_5001_TAGS": "sixpack-web,nginx,haproxy,haproxy_weight=100",
-    "SERVICE_5001_NAME": "sixpack-web",
+    "SERVICE_80_TAGS": "sixpack-web,nginx,haproxy,haproxy_weight=100",
+    "SERVICE_80_NAME": "sixpack-web",
     "EXTERNAL_DNS_NAME": { "secret": "sixpack_config_external_dns_name" },
     "OAUTH_CLIENT_ID": { "secret": "oauth_client_id" },
     "OAUTH_CLIENT_SECRET": { "secret": "oauth_client_secret" },
